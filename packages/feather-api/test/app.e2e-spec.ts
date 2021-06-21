@@ -1,5 +1,3 @@
-import { AggregateResponse, getQueryServiceToken, QueryService } from '@nestjs-query/core';
-import { CursorConnectionType } from '@nestjs-query/query-graphql';
 import { Test } from '@nestjs/testing';
 import * as request from 'supertest';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
@@ -8,7 +6,7 @@ import { AppModule } from '../src/app.module';
 import { InsuranceDTO } from '../src/modules/insurances/dto/insurance.dto';
 import { refresh } from './fixtures';
 
-describe('TodoItemResolver (typeorm - e2e)', () => {
+describe('App Tests (typeorm - e2e)', () => {
   let app: INestApplication;
   let magicToken: string = '';
   let accessToken: string = '';
