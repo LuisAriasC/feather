@@ -24,7 +24,9 @@ COPY . /app
 # Runner
 FROM gcr.io/distroless/nodejs:12 as runner
 
-LABEL "org.opencontainers.image.source"="https://github.com/LuisAriasC/FEATHER/"
+ENV VAULT_ENV=QNXARotgR5cDab4gRqfyfH
+
+LABEL "org.opencontainers.image.source"="https://github.com/LuisAriasC/feather/"
 
 COPY --from=dependencies /app/node_modules /app/node_modules
 COPY --from=builder /app/dist /app/dist

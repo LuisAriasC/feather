@@ -29,7 +29,7 @@ export default registerAs(
       return {
         signOptions: {
           algorithm: 'RS256',
-          expiresIn: Number(process.env.JWT_EXPIRATION) || '15 m',
+          expiresIn: Number(process.env.JWT_EXPIRATION) || '15m',
           issuer: process.env.JWT_ISSUER || 'https://feather.com',
         },
         privateKey: process.env.JWT_PRIVATE ? process.env.JWT_PRIVATE.replace(/\\n/gm, '\n') : jwtPrivate.replace(/\\n/gm, '\n'),

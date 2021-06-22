@@ -11,6 +11,7 @@ export default registerAs('config', async () => {
 
     let mailerKey = '';
     let mailerSender = '';
+    let projectUrl = '';
 
     //Obtain value from vault
     await flagsmith.getValue("mailerkey")
@@ -24,6 +25,12 @@ export default registerAs('config', async () => {
       mailerSender = String(value);
     });
 
+    //Obtain value from vault
+    await flagsmith.getValue("projecturl")
+    .then((value) => {
+      projectUrl = String(value);
+    });
+
     const authorization = {
       saltLen: process.env.AUTHORIZATION_SALT_LENGHT || 24,
       authExpiration: process.env.JWT_EXPIRATION || 900,
@@ -31,7 +38,7 @@ export default registerAs('config', async () => {
       magicExpiration: process.env.JWT_MAGIC_EXPIRATION || 3600,
     };
 
-    const magicURL = process.env.MAGIC_URL || 'http:/localhost:8080'
+    const magicURL = process.env.MAGIC_URL || projectUrl
     const mail = {
       sender: process.env.MAILER_SENDER || mailerSender,
       key: process.env.MAILER_KEY || mailerKey

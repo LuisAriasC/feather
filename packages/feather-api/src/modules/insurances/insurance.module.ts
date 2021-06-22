@@ -33,9 +33,9 @@ import { InsuranceService } from 'src/modules/insurances/insurance.service';
           enableAggregate: true,
           enableTotalCount: true,
           enableSubscriptions: false,
-          //create: {
-          //  decorators: [CheckPermissions(new CreateHandler(Subject.STOCK))],
-          //},
+          create: {
+            decorators: [CheckPermissions(new CreateHandler(Subject.INSURANCE))],
+          },
           //read: {
           //  decorators: [CheckPermissions(new ReadHandler(Subject.INSURANCE))],
           //},
