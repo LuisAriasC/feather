@@ -1,0 +1,462 @@
+{
+	"info": {
+		"_postman_id": "9359c505-398e-40ef-9116-4da29b0b85ee",
+		"name": "Feather",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Insurance",
+			"item": [
+				{
+					"name": "Create insurance",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation createInsurance($input: CreateOneInsuranceInput!){\n  createOneInsurance(\n    input: $input\n  ) {\n    id\n  }\n}",
+								"variables": "{\n  \"input\": {\n    \"insurance\": {\n      \"name\": \"Student Insurance\",\n      \"provider\": \"Study\",\n      \"cost\": \"10\",\n      \"frequency\": \"Month\",\n      \"description\": \"Student Insurance\"\n    }\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{dev-url}}/graphql",
+							"host": [
+								"{{dev-url}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insurances",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\n  insurances{\n    nodes{\n        id\n        type\n        public\n    }\n  }\n}",
+								"variables": "{\n  \"input\": {\n    \"insurance\": {\n      \"name\": \"Student Insurance\",\n      \"provider\": \"Study\",\n      \"cost\": \"10\",\n      \"frequency\": \"Month\",\n      \"description\": \"Student Insurance\"\n    }\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{dev-url}}/graphql",
+							"host": [
+								"{{dev-url}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sign up REST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var objResponse = JSON.parse(responseBody);",
+							"pm.environment.set(\"magicToken\", objResponse.magicToken);",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Check response /auth/signup\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.magicToken).not.eq(null);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"firstName\": \"Luis\",\n  \"lastName\": \"Arias\",\n  \"email\": \"luis.carlos.arias.camacho@gmail.com\",\n  \"userName\": \"LuisArias\",\n  \"phoneNumber\": \"+527222548816\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{dev-url}}/auth/signup",
+					"host": [
+						"{{dev-url}}"
+					],
+					"path": [
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login REST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var objResponse = JSON.parse(responseBody);",
+							"pm.environment.set(\"magicToken\", objResponse.magicToken);",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Check response /auth/login\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.magicToken).not.eq(null);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userName\": \"luis.carlos.arias.camacho@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{dev-url}}/auth/login",
+					"host": [
+						"{{dev-url}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authorize REST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var objResponse = JSON.parse(responseBody);",
+							"pm.environment.set(\"accessToken\", objResponse.accessToken);",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Check response /auth/authorize\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.magicToken).not.eq(null);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{dev-url}}/auth/authorize?token={{magicToken}}",
+					"host": [
+						"{{dev-url}}"
+					],
+					"path": [
+						"auth",
+						"authorize"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "{{magicToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout REST",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{dev-url}}/auth/logout",
+					"host": [
+						"{{dev-url}}"
+					],
+					"path": [
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Signup GRAPHQL",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var objResponse = JSON.parse(responseBody);",
+							"pm.environment.set(\"magicToken\", objResponse.data.signup.magicToken);",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Check response /graphql for signup\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.magicToken).not.eq(null);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation signUp($data: SignupInput!){\n  signup(\n    data: $data\n  ) {\n    magicToken\n  }\n}",
+						"variables": "{\n  \"data\": {\n      \"firstName\": \"Luis\",\n      \"lastName\": \"Arias\",\n      \"dateOfBirth\": null,\n      \"email\": \"luis.carlos.arias.camacho@gmail.com\",\n      \"userName\": \"LuisArias\",\n      \"phoneNumber\": \"+527222548816\"\n  }\n}"
+					}
+				},
+				"url": {
+					"raw": "{{dev-url}}/graphql",
+					"host": [
+						"{{dev-url}}"
+					],
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login GRAPHQL",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var objResponse = JSON.parse(responseBody);",
+							"pm.environment.set(\"magicToken\", objResponse.data.login.magicToken);",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Check response /graphql for login\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.magicToken).not.eq(null);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query login($data: LoginInput!){\n  login(\n    data: $data\n  ) {\n    magicToken\n  }\n}",
+						"variables": "{\n  \"data\": {\n      \"userName\": \"luis.carlos.arias.camacho@gmail.com\"\n  }\n}"
+					}
+				},
+				"url": {
+					"raw": "{{dev-url}}/graphql",
+					"host": [
+						"{{dev-url}}"
+					],
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authorize GRAPHQL",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var objResponse = JSON.parse(responseBody);",
+							"pm.environment.set(\"accessToken\", objResponse.data.authorize.accessToken);",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Check response /graphql for authorize\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.magicToken).not.eq(null);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query authorize($token: String!){\n  authorize(\n    token: $token\n  ) {\n    accessToken\n  }\n}",
+						"variables": "{\n  \"token\": \"{{magicToken}}\"\n}"
+					}
+				},
+				"url": {
+					"raw": "{{dev-url}}/graphql",
+					"host": [
+						"{{dev-url}}"
+					],
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout GRAPHQL",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var objResponse = JSON.parse(responseBody);",
+							"pm.environment.set(\"accessToken\", objResponse.data.authorize.accessToken);",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Check response /graphql for authorize\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.magicToken).not.eq(null);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query logout{\n  logout(\n      logout: true\n  )\n}",
+						"variables": "{\n  \"token\": \"{{magicToken}}\"\n}"
+					}
+				},
+				"url": {
+					"raw": "{{dev-url}}/graphql",
+					"host": [
+						"{{dev-url}}"
+					],
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getRecommendations",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{accessToken}}"
+					}
+				],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query {\n  insurances{\n    nodes{\n        id\n        type\n        public\n    }\n  }\n}",
+						"variables": "{\n  \"input\": {\n    \"insurance\": {\n      \"name\": \"Student Insurance\",\n      \"provider\": \"Study\",\n      \"cost\": \"10\",\n      \"frequency\": \"Month\",\n      \"description\": \"Student Insurance\"\n    }\n  }\n}"
+					}
+				},
+				"url": {
+					"raw": "{{dev-url}}/graphql",
+					"host": [
+						"{{dev-url}}"
+					],
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -21,7 +21,8 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "typeorm": "ts-node -r tsconfig-paths/register ../../node_modules/typeorm/cli.js --config ./src/modules/database/ormconfig.ts",
     "typeorm:migrate": "yarn run typeorm migration:generate -- -n",
-    "typeorm:run": "yarn run typeorm migration:run"
+    "typeorm:run": "yarn run typeorm migration:run",
+    "docker:build": "docker build -t feather-api . && docker run -d -p 8080:8080 --name feather_api -it feather-api"
   },
   "dependencies": {
     "@casl/ability": "5.2.2",
