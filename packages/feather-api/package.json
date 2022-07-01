@@ -54,7 +54,7 @@
     "graphql-subscriptions": "1.2.0",
     "graphql-type-json": "0.3.2",
     "helmet": "4.4.1",
-    "ioredis": "4.24.4",
+    "ioredis": "5.1.0",
     "jsonwebtoken": "8.5.1",
     "jwks-rsa": "2.0.3",
     "lodash": "4.17.21",
